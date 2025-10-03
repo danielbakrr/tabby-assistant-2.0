@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tabby Teaching Assistant</title>
+    <link rel="stylesheet" href="sidePanel.css">
+    <script src="sidePanel.js" defer></script>
 </head>
 <body>
-    
+    <header>
+        <h1>Tabby Teaching Assistant</h1>
+    </header>
+    <main>
+        <section id="selectedArea">
+            <h2>Highlighted Selection</h2>
+            <div id="selectionText">Highlight a section on the screen!</div>
+        </section>
+        <section id="responseArea">
+            <h2>Response</h2>
+            <div id="responseText">Your response will appear here!</div>
+        </section>
+        <section id="controls">
+            <button id="askButton">Ask Tabby</button>
+            <button id="saveButton">Save</button>
+            <button id="summarizeButton">Summarize</button>
+            <button id="historyButton">History</button>
+        </section>
+        <section id="historyArea">
+            <h2>History</h2>
+            <ul id="historyList">No history yet.</ul>
+    </main>
 </body>
 </html>
