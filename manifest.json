@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Tabby Teaching Assistant",
+    "version": "1.0",
+    "description": "Google extension to assist with teaching tasks.",
+    "permissions": [
+        "sidePanel",
+        "scripting",
+        "activeTab",
+        "storage"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {},
+    "side_panel": {
+        "default_path": "sidepanel.html"
+    },
+    "icons": {
+        "16": "icons/pngtree-cute-little-tabby-cat-png-image_14658240.png"
+    }
+}
