@@ -18,5 +18,11 @@
     },
     "icons": {
         "16": "icons/pngtree-cute-little-tabby-cat-png-image_14658240.png"
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ]
 }
