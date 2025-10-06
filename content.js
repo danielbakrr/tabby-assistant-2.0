@@ -9,4 +9,5 @@ document.addEventListener('selectionChange', function() {
         const highlightSpan = document.createElement('span');
         highlightSpan.style.backgroundColor = 'yellow';
         range.surroundContents(highlightSpan); // easier to see
+        chrome.runtime.sendMessage({ type: 'selection', text});
 }});

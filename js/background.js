@@ -1,3 +1,12 @@
 chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: true })
   .catch((error) => console.error(error));
+
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (message.type === "selection") {
+    chrome.runtime.sendMessage({ type: "selection_for_panel", text: message.text, tab: sender.tab });
+    if (chrome.sidePanel && chrome.sidePanel.open) {
+        chrome.sidePanel.open().catch(() => {});
+    }
+    }
+});
