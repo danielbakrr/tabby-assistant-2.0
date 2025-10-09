@@ -9,11 +9,15 @@ document.addEventListener('selectionchange', function() {
         const highlightSpan = document.createElement('span');
         highlightSpan.style.backgroundColor = 'yellow';
         range.surroundContents(highlightSpan); // easier to see
+        highlightSpan.dataset.tempHighlight = 'true'; // mark for removal later
+
         const contents = range.extractContents();
         highlightSpan.appendChild(contents);
         range.insertNode(highlightSpan);
+
         selected.removeAllRanges();
         chrome.runtime.sendMessage({ type: 'selection', text});
+
 }});
 
 
@@ -23,5 +27,3 @@ document.addEventListener("click", () => {
     span.replaceWith(...span.childNodes);
   });
 });
-
-highlightSpan.dataset.tempHighlight = "true";
