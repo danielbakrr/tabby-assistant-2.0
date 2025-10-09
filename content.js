@@ -17,7 +17,7 @@ document.addEventListener('selectionchange', function() {
         range.insertNode(highlightSpan);
 
         selected.removeAllRanges();
-        chrome.runtime.sendMessage({ type: 'selection', text});
+        chrome.runtime.sendMessage({ type: 'selected', text});
     } catch (e) {
         console.error('Error highlighting selection:', e);
     }
