@@ -1,10 +1,10 @@
 //create highlighted selection
 document.addEventListener('selectionchange', function() {
-    const selected = window.getSelection().toString();
+    const selected = window.getSelection();
     if (!selected) return;
 
-    const text = selected ? selected.toString().trim() : '';
-    if (!selected) return;
+    const text = selected.toString().trim();
+    if (!text) return;
     
     try{
         const range = window.getSelection().getRangeAt(0);
