@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(() => {
         chrome.scripting.executeScript({
           target: { tabId: tab.id },
           files: ['content.js']
-        });
+        }).catch(err => console.warn("Failed to inject content script:", err));
       }
     }
   });
