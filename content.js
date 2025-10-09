@@ -1,5 +1,5 @@
 //create highlighted selection
-document.addEventListener('selectionChange', function() {
+document.addEventListener('selectionchange', function() {
     const selected = window.getSelection().toString();
     if (!selected) return;
 
