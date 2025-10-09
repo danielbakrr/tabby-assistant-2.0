@@ -5,7 +5,7 @@ document.addEventListener('selectionchange', function() {
 
     const text = selected ? selected.toString().trim() : '';
     if (selected) {
-        const range = window.getSelection().getRangeAt(0);
+        const range = window.getSelection()
         const highlightSpan = document.createElement('span');
         highlightSpan.style.backgroundColor = 'yellow';
         range.surroundContents(highlightSpan); // easier to see
