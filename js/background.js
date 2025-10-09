@@ -1,16 +1,4 @@
 chrome.runtime.onInstalled.addListener(() => {
-  //inject content script into all tabs to avoid refreshinh
-  chrome.tabs.query({}, (tabs) => {
-    for (let tab of tabs) {
-      if (tab.url && (tab.url.startsWith("https://") || tab.url.startsWith("http://"))) {
-        chrome.scripting.executeScript({
-          target: { tabId: tab.id },
-          files: ['content.js']
-        }).catch(err => console.warn("Failed to inject content script:", err));
-      }
-    }
-  });
-
     if (chrome.sidePanel && chrome.sidePanel.setPanelBehavior){
         chrome.sidePanel
         .setPanelBehavior({ openPanelOnActionClick: true })
