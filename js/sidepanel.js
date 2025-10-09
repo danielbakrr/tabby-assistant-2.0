@@ -42,7 +42,14 @@ chrome.runtime.onMessage.addListener(async (message) => {
         }
 
         try {
-            const prompt = `Explain this text in detail for a student:\n\n"${text}"`;
+            const prompt = `You are Tabby, an AI tutor. For the following text, provide a clear explanation suitable for a student. Break it down into:
+
+            1. Summary: One or two sentences that capture the main idea.
+            2. Key Concepts: 2–3 bullet points of important ideas or details.
+            3. Example or Analogy: A simple example or analogy to make the concept easier to understand.
+
+            Text: """${text}"""`;
+            
             const result = await session.prompt(prompt);
             responseEl.textContent = result;
         } catch (err) {
