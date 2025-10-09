@@ -2,7 +2,7 @@ chrome.runtime.onInstalled.addListener(() => {
   //inject content script into all tabs to avoid refreshinh
   chrome.tabs.query({}, (tabs) => {
     for (let tab of tabs) {
-      if (tab.url.startsWith("https://") || tab.url.startsWith("http://")) {
+      if (tab.url.startsWith("https://") || tab.url.startsWith("http://") || tab.url.startsWith("chrome://")) {
         chrome.scripting.executeScript({
           target: { tabId: tab.id },
           files: ['content.js']
