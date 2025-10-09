@@ -1,5 +1,5 @@
 //create highlighted selection
-document.addEventListener('selectionchange', function() {
+document.addEventListener('mouseup', function() {
     const selected = window.getSelection();
     if (!selected) return;
 
