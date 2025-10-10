@@ -14,6 +14,7 @@ window.saveToHistory = async function (text, response) {
     await chrome.storage.local.set({ history: updatedHistory});
 
     window.loadHistory();
+
   } catch (e) {
     console.error("Error saving to history:", e);
   }
@@ -42,3 +43,7 @@ window.loadHistory = async function() {
     historyList.appendChild(li);
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  window.loadHistory();
+});

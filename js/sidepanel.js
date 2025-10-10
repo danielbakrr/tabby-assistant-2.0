@@ -144,4 +144,3 @@ themeToggle.addEventListener("click", () => {
 
     chrome.storage.local.set({ darkMode: isDark });
 });
-
