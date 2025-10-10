@@ -129,3 +129,18 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
   }
 });
 
+//---------------------------- theme Toggle ----------------------------//
+const themeToggle = document.getElementById("themeToggle");
+
+//load saved theme from storage
+chrome.storage.local.get(["darkMode"], (data) => {
+    if (data.darkMode) document.body.classList.add("dark-mode");
+});
+
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+
+    chrome.storage.local.set({ darkMode: isDark });
+});
+
