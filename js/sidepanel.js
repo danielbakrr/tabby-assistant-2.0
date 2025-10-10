@@ -130,7 +130,7 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
 });
 
 //---------------------------- theme Toggle ----------------------------//
-const themeToggle = document.getElementById("themeToggle");
+const themeToggle = document.getElementById("toggleTheme");
 
 //load saved theme from storage
 chrome.storage.local.get(["darkMode"], (data) => {
