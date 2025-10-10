@@ -40,14 +40,14 @@ let session = null;
 })();
 
 //listen for messages
-document.getElementById("askButton").addEventListener("click", async(message) => {
-    const text = selectionTextEl.textContent;
+document.getElementById("askButton").addEventListener("click", async (message) => {
+    const text = selectionTextEl.textContent.trim();
     if (!text) {
         responseEl.textContent = "Please highlight some text first.";
         return;
     }
 
-    responseEl.textContent = "Tabby is thinking...";
+    responseEl.textContent = "🤔 Tabby is analyzing your text...";
 
     if (!session) {
         responseEl.textContent = "Tabby not ready yet...";
@@ -57,20 +57,20 @@ document.getElementById("askButton").addEventListener("click", async(message) =>
     try {
         const prompt = `You are Tabby, an AI tutor. For the following text, provide a clear explanation suitable for a student. Break it down into:
 
-        1. Summary: One or two sentences that capture the main idea.
-        2. Key Concepts: 2–3 bullet points of important ideas or details.
-        3. Example or Analogy: A simple example or analogy to make the concept easier to understand.
+1. Summary: One or two sentences that capture the main idea.
+2. Key Concepts: 2–3 bullet points of important ideas or details.
+3. Example or Analogy: A simple example or analogy to make the concept easier to understand.
 
-        Text: """${text}"""`;
-        
+Text: """${text}"""`;
+
         const result = await session.prompt(prompt);
         responseEl.textContent = result;
     } catch (err) {
         console.error("Error getting AI response:", err);
         responseEl.textContent = "Error getting Tabby response.";
     }
-    }
-);
+});
+
 
 //---------------------------- Summarizer ----------------------------//
 let summarizer = null;
@@ -100,8 +100,8 @@ let summarizer = null;
 
 })();
 
-document.getElementById("summarizeButton").addEventListener("click", async(message) => {
-    const text = selectionTextEl.textContent;
+document.getElementById("summarizeButton").addEventListener("click", async () => {
+    const text = selectionTextEl.textContent.trim();
     if (!text) {
         responseEl.textContent = "Please highlight some text first.";
         return;
@@ -111,12 +111,13 @@ document.getElementById("summarizeButton").addEventListener("click", async(messa
         responseEl.textContent = "Summarizer not ready yet...";
         return;
     }
+
     try {
-        responseEl.textContent = "Tabby is Summarizing...";
-        const result = await summarizer.summarize(selectionTextEl.textContent);
+        responseEl.textContent = "📝 Tabby is summarizing...";
+        const result = await summarizer.summarize(text);
         responseEl.textContent = result;
     } catch (err) {
         console.error("Error getting summary:", err);
         responseEl.textContent = "Error getting summary.";
     }
-})
+});
