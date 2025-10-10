@@ -39,10 +39,10 @@ body {
 }
 
 header {
-    background: var(--section-bg);
     padding: 20px;
-    border-radius: 12px;
+    /* border-radius: 12px;
     box-shadow: 0 4px 12px var(--shadow);
+    background: var(--section-bg); */
     margin-bottom: 16px;
     text-align: center;
 }
