@@ -8,7 +8,7 @@ window.saveToHistory = async function (text, response) {
     updatedHistory.push({
       text,
       response,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toLocaleDateString()
     });
 
     await chrome.storage.local.set({ history: updatedHistory});
