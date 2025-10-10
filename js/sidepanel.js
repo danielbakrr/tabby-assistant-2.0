@@ -1,3 +1,6 @@
+//---------------------------- Imports ----------------------------//
+import { saveToHistory } from "./history";
+//---------------------------- Element References ---------------------------//
 const selectionTextEl = document.getElementById("selectionText");
 const responseEl = document.getElementById("responseText");
 
