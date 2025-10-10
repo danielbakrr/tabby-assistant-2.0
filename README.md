@@ -17,6 +17,8 @@ AI integrated study assistant chrome extension
 5. side panel function for split screen functionality
 - implemented
 
-6. History functonality 
+6. Persistent History functonality
+- implemented for prompt function
+- yet to implement for summarize
 
 7. Timed function to record study session
