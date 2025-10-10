@@ -1,14 +1,14 @@
 :root {
-    --bg: #ffffff;
-    --section-bg: #f7f7f7;
-    --text: #111111;
-    --text-muted: #555555;
-    --accent: #667eea;
-    --border: #ccc;
-    --button-bg: #e0e0e0;
-    --button-hover: #d0d0d0;
-    --history-bg: #f2f2f2;
-    --shadow: rgba(0, 0, 0, 0.1);
+    --bg: #0f111a;
+    --section-bg: #1a1c2b;
+    --text: #e4e6eb;
+    --text-muted: #777b8a;
+    --accent: #4e5eff;
+    --border: #3a3f5c;
+    --button-bg: #3a3f5c;
+    --button-hover: #4e5eff;
+    --history-bg: #222436;
+    --shadow: rgba(0, 0, 0, 0.3);
 }
 
 body.dark-mode {
@@ -25,72 +25,93 @@ body.dark-mode {
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: var(--bg);
-    color: var(--text);
     min-height: 100vh;
+    padding: 16px;
+    color: var(--text);
+}
+
+header {
+    background: var(--section-bg);
     padding: 20px;
-    line-height: 1.5;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+h1 {
+    color: var(--text);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 section {
     background: var(--section-bg);
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px var(--shadow);
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-h1, h2 {
-    font-weight: 600;
-    margin-bottom: 12px;
-}
-
-h1 {
-    font-size: 24px;
-    color: var(--text);
+    box-shadow: 0 4px 10px var(--shadow);
 }
 
 h2 {
     font-size: 18px;
     color: var(--text);
+    opacity: 0.8;
+    margin-bottom: 12px;
+    font-weight: 600;
 }
 
-/* Selection & Response boxes */
 #selectionText, #responseText {
     background: var(--history-bg);
-    border: 1px solid var(--border);
+    padding: 16px;
     border-radius: 8px;
-    padding: 14px;
+    border: 1px solid var(--border);
     min-height: 80px;
-    font-size: 14px;
     color: var(--text);
-    transition: background 0.3s ease, border 0.3s ease;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#responseText {
+    border-color: var(--accent);
+}
+
+#controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
 }
 
 button {
     background: var(--button-bg);
     color: var(--text);
     border: none;
+    padding: 14px 20px;
     border-radius: 8px;
-    padding: 12px 18px;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 2px 6px var(--shadow);
     transition: all 0.2s ease;
+    box-shadow: 0 2px 6px var(--shadow);
 }
 
 button:hover {
-    background: var(--button-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px var(--shadow);
+    box-shadow: 0 4px 12px var(--shadow);
+    background: var(--button-hover);
 }
 
 button:active {
@@ -99,9 +120,8 @@ button:active {
 }
 
 #historyArea {
-    max-height: 280px;
+    max-height: 300px;
     overflow-y: auto;
-    padding-right: 4px;
 }
 
 #historyList {
@@ -110,41 +130,42 @@ button:active {
 
 #historyList li {
     background: var(--history-bg);
-    border-left: 3px solid var(--accent);
     padding: 12px;
+    border-radius: 8px;
     margin-bottom: 8px;
-    border-radius: 6px;
-    color: var(--text-muted);
+    border-left: 4px solid var(--accent);
     font-size: 14px;
+    color: var(--text);
     transition: background 0.2s ease;
 }
 
 #historyList li:hover {
-    background: var(--button-hover);
+    background: #2c3050;
     cursor: pointer;
 }
 
+.empty-state {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Scrollbar styling */
 #historyArea::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 #historyArea::-webkit-scrollbar-track {
     background: var(--section-bg);
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 #historyArea::-webkit-scrollbar-thumb {
     background: var(--accent);
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 #historyArea::-webkit-scrollbar-thumb:hover {
-    background: #5568d3;
-}
-
-.empty-state {
-    text-align: center;
-    font-style: italic;
-    color: var(--text-muted);
-    padding: 16px;
+    background: #6a7fff;
 }
