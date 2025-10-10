@@ -1,6 +1,6 @@
 const historyList = document.getElementById("historyList");
 
-async function saveToHistory(text, response) {
+window.saveToHistory = async function (text, response) {
   try {
     const { history } = await chrome.storage.local.get("history");
     const updatedHistory = history || [];
@@ -13,14 +13,14 @@ async function saveToHistory(text, response) {
 
     await chrome.storage.local.set({ history: updatedHistory});
 
-    loadHistory();
+    window.loadHistory();
   } catch (e) {
     console.error("Error saving to history:", e);
   }
 }
 
 // Function to render history
-async function loadHistory() {
+window.loadHistory = async function() {
   historyList.innerHTML = "";
   const { history } = await chrome.storage.local.get("history");
 
@@ -42,5 +42,3 @@ async function loadHistory() {
     historyList.appendChild(li);
   }
 }
-
-export { loadHistory, saveToHistory };
