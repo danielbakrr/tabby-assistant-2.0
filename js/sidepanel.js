@@ -77,47 +77,55 @@ let summarizer = null;
 
 //initialize Summarizer automatically
 (async function initSummarizer() {
-    try {
-        const avail= await Summarizer.availability();
-        if (avail === "unavailable") {
-            responseEl.textContent = "Summarizer unavailable. Please check your connection.";
-            return;
-        }
-        if (avail === "downloadable") {
-            responseEl.textContent = "Summarizer needs user gesture to download";
-            return;
-        }
-        summarizer = await Summarizer.create({
-            type: "key-points",
-            length: "medium",
-        })
-        responseEl.textContent = "Summarizer is ready!";
+  try {
+    const availability = await Summarizer.availability();
 
-    }
-    catch (e) {
-        console.error("Error initializing Summarizer:", e);
+    if (availability === "unavailable") {
+      responseEl.textContent = "Summarizer unavailable. Please check your connection.";
+      return;
     }
 
+    if (availability === "downloadable") {
+      responseEl.textContent = "Summarizer needs user gesture to download.";
+      return;
+    }
+
+    summarizer = await Summarizer.create({
+      type: "key-points",
+      format: "plain-text",
+      length: "medium",
+      sharedContext: "This is educational text for summarization."
+    });
+
+    responseEl.textContent = "Summarizer is ready!";
+  } catch (e) {
+    console.error("Error initializing Summarizer:", e);
+    responseEl.textContent = "Error initializing Summarizer.";
+  }
 })();
 
+//send message when summarize button is clicked
 document.getElementById("summarizeButton").addEventListener("click", async () => {
-    const text = selectionTextEl.textContent.trim();
-    if (!text) {
-        responseEl.textContent = "Please highlight some text first.";
-        return;
-    }
+  const text = selectionTextEl.textContent.trim();
 
-    if (!summarizer) {
-        responseEl.textContent = "Summarizer not ready yet...";
-        return;
-    }
+  if (!text) {
+    responseEl.textContent = "Please highlight some text first.";
+    return;
+  }
 
-    try {
-        responseEl.textContent = "📝 Tabby is summarizing...";
-        const result = await summarizer.summarize(text);
-        responseEl.textContent = result;
-    } catch (err) {
-        console.error("Error getting summary:", err);
-        responseEl.textContent = "Error getting summary.";
-    }
+  if (!summarizer) {
+    responseEl.textContent = "Summarizer not ready yet...";
+    return;
+  }
+
+  try {
+    responseEl.textContent = "📝 Tabby is summarizing...";
+
+    const summary = await summarizer.summarize(text);
+    responseEl.textContent = summary;
+  } catch (err) {
+    console.error("Error generating summary:", err);
+    responseEl.textContent = "Error generating summary.";
+  }
 });
+
