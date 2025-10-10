@@ -19,7 +19,7 @@ async function saveToHistory(text, response) {
   }
 }
 
-//render history
+// Function to render history
 async function loadHistory() {
   historyList.innerHTML = "";
   const { history } = await chrome.storage.local.get("history");
@@ -42,3 +42,5 @@ async function loadHistory() {
     historyList.appendChild(li);
   }
 }
+
+export { loadHistory, saveToHistory };
