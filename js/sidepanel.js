@@ -65,6 +65,7 @@ document.getElementById("askButton").addEventListener("click", async () => {
 
         const result = await session.prompt(prompt);
         responseEl.textContent = result;
+        await saveToHistory(text, result);
     } catch (err) {
         console.error("Error getting AI response:", err);
         responseEl.textContent = "Error getting Tabby response.";
