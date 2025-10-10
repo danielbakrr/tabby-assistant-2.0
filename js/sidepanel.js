@@ -71,6 +71,37 @@ document.getElementById("askButton").addEventListener("click", async () => {
     }
 });
 
+//---------------------------- Format AI text ----------------------------//
+
+function formatAIResponse(text) {
+    //bolden headings
+    text = text.replace(/(\d+\.\s\w+):/g, "<b>$1</b><br>");
+
+    //convert lines starting with '*' or '-' into unordered lists
+    const lines = text.split("\n");
+    let inList = false;
+    const formattedLines = lines.map(line => {
+        if (/^\s*[-*]\s+/.test(line)) {
+            if (!inList) {
+                inList = true;
+                return "<ul><li>" + line.replace(/^[-*]\s+/, "") + "</li>";
+            } else {
+                return "<li>" + line.replace(/^[-*]\s+/, "") + "</li>";
+            }
+        } else {
+            if (inList) {
+                inList = false;
+                return "</ul>" + line;
+            }
+            return line;
+        }
+    });
+
+    if (inList) formattedLines.push("</ul>");
+
+    //line breaks
+    return formattedLines.join("<br>");
+}
 
 //---------------------------- Summarizer ----------------------------//
 let summarizer = null;
