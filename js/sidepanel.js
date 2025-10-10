@@ -41,8 +41,13 @@ let session = null;
 
 //listen for messages
 document.getElementById("askButton").addEventListener("click", async(message) => {
+    const text = selectionTextEl.textContent;
+    if (!text) {
+        responseEl.textContent = "Please highlight some text first.";
+        return;
+    }
 
-    responseEl.textContent = "Thinking...";
+    responseEl.textContent = "Tabby is thinking...";
 
     if (!session) {
         responseEl.textContent = "Tabby not ready yet...";
@@ -96,13 +101,18 @@ let summarizer = null;
 })();
 
 document.getElementById("summarizeButton").addEventListener("click", async(message) => {
-    responseEl.textContent = "Summarizing...";
+    const text = selectionTextEl.textContent;
+    if (!text) {
+        responseEl.textContent = "Please highlight some text first.";
+        return;
+    }
 
     if (!summarizer) {
         responseEl.textContent = "Summarizer not ready yet...";
         return;
     }
     try {
+        responseEl.textContent = "Tabby is Summarizing...";
         const result = await summarizer.summarize(selectionTextEl.textContent);
         responseEl.textContent = result;
     } catch (err) {
