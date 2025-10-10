@@ -14,7 +14,7 @@ chrome.runtime.onMessage.addListener((message, sender) => {
     if (chrome.sidePanel && chrome.sidePanel.open) {
       chrome.sidePanel
         .open({ path: "sidepanel.html" })
-        .catch(() => {});
+        .catch((e) => console.error("Error opening side panel:", e));
     }
     }
 });
