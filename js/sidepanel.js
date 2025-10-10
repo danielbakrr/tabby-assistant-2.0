@@ -1,5 +1,6 @@
 //---------------------------- Imports ----------------------------//
-import { saveToHistory } from "./history";
+import { saveToHistory } from "../js/history.js";
+
 //---------------------------- Element References ---------------------------//
 const selectionTextEl = document.getElementById("selectionText");
 const responseEl = document.getElementById("responseText");
