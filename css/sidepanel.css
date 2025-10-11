@@ -1,3 +1,16 @@
+:root {
+    --bg: #f5f6fa;
+    --section-bg: #ffffff;
+    --text: #2d2d2d;
+    --text-muted: #7a7a7a;
+    --accent: #4e5eff;
+    --border: #dcdde1;
+    --button-bg: #e0e1ff;
+    --button-hover: #c7c9ff;
+    --history-bg: #f0f1f7;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
 .ask-mode {
     --bg: #0e0f19;
     --section-bg: #1b1d2d;
