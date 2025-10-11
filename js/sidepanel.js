@@ -146,3 +146,10 @@ chrome.storage.local.get(["mode"], (data) => {
         document.body.classList.add(data.mode);
     }
 });
+
+//---------------------------- Notes Redirect ----------------------------//
+const savedButton = document.getElementById("savedNotes");
+
+savedButton.addEventListener("click", async () => {
+    window.location.href = "notes.html";
+})

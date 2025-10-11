@@ -1,9 +1,3 @@
-const savedButton = document.getElementById("savedNotes");
-
-savedButton.addEventListener("click", async () => {
-    window.location.href = "notes.html";
-})
-
 window.saveNotes = async function(text, response) {
     try {
         const { notes } = await chrome.storage.local.get("notes");
