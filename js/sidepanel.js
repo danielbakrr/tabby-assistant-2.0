@@ -67,6 +67,7 @@ document.getElementById("askButton").addEventListener("click", async () => {
         const result = await session.prompt(prompt);
         responseEl.textContent = result;
         await saveToHistory(text, result, "prompt"); // add flag to indicate history source
+        await loadHistory("prompt"); // immediately populate history after clicking button
     } catch (err) {
         console.error("Error getting AI response:", err);
         responseEl.textContent = "Error getting Tabby response.";
@@ -125,6 +126,7 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
     const summary = await summarizer.summarize(text);
     responseEl.textContent = summary;
     await saveToHistory(text, summary, "summary"); // add flag to indicate history source
+    await loadHistory("summary"); // immediately populate history after clicking button
   } catch (err) {
     console.error("Error generating summary:", err);
     responseEl.textContent = "Error generating summary.";
