@@ -42,6 +42,7 @@ let session = null;
 
 //listen for messages
 document.getElementById("askButton").addEventListener("click", async () => {
+    await loadHistory("prompt"); // immediately populate history after clicking button
     const text = selectionTextEl.textContent.trim();
     if (!text) {
         responseEl.textContent = "Please highlight some text first.";
@@ -67,7 +68,6 @@ document.getElementById("askButton").addEventListener("click", async () => {
         const result = await session.prompt(prompt);
         responseEl.textContent = result;
         await saveToHistory(text, result, "prompt"); // add flag to indicate history source
-        await loadHistory("prompt"); // immediately populate history after clicking button
     } catch (err) {
         console.error("Error getting AI response:", err);
         responseEl.textContent = "Error getting Tabby response.";
@@ -108,29 +108,29 @@ let summarizer = null;
 
 //send message when summarize button is clicked
 document.getElementById("summarizeButton").addEventListener("click", async () => {
-  const text = selectionTextEl.textContent.trim();
-
-  if (!text) {
-    responseEl.textContent = "Please highlight some text first.";
-    return;
-  }
-
-  if (!summarizer) {
-    responseEl.textContent = "Summarizer not ready yet...";
-    return;
-  }
-
-  try {
-    responseEl.textContent = "📝 Tabby is summarizing...";
-
-    const summary = await summarizer.summarize(text);
-    responseEl.textContent = summary;
-    await saveToHistory(text, summary, "summary"); // add flag to indicate history source
     await loadHistory("summary"); // immediately populate history after clicking button
-  } catch (err) {
-    console.error("Error generating summary:", err);
-    responseEl.textContent = "Error generating summary.";
-  }
+    const text = selectionTextEl.textContent.trim();
+
+    if (!text) {
+        responseEl.textContent = "Please highlight some text first.";
+        return;
+    }
+
+    if (!summarizer) {
+        responseEl.textContent = "Summarizer not ready yet...";
+        return;
+    }
+
+    try {
+        responseEl.textContent = "📝 Tabby is summarizing...";
+
+        const summary = await summarizer.summarize(text);
+        responseEl.textContent = summary;
+        await saveToHistory(text, summary, "summary"); // add flag to indicate history source
+    } catch (err) {
+        console.error("Error generating summary:", err);
+        responseEl.textContent = "Error generating summary.";
+    }
 });
 
 //---------------------------- theme Toggle ----------------------------//
