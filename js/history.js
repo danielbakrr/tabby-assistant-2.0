@@ -32,11 +32,11 @@ window.loadHistory = async function(source) {
         const li = document.createElement("li");
         li.classList.add("empty-state");
         li.textContent = "No history yet.";
-        promptHistory.appendChild(li);
+        historyList.appendChild(li);
         return;
     }
 
-    for (const entry of history) {
+    for (const entry of promptHistory) {
     const li = document.createElement("li");
     li.innerHTML = `
       <strong>${entry.timestamp}</strong><br>
@@ -51,11 +51,11 @@ window.loadHistory = async function(source) {
         const li = document.createElement("li");
         li.classList.add("empty-state");
         li.textContent = "No history yet.";
-        summaryHistory.appendChild(li);
+        historyList.appendChild(li);
         return;
     }
 
-    for (const entry of history) {
+    for (const entry of summaryHistory) {
     const li = document.createElement("li");
     li.innerHTML = `
         <strong>${entry.timestamp}</strong><br>
