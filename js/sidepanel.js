@@ -133,17 +133,23 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
     }
 });
 
-//---------------------------- theme Toggle ----------------------------//
-const themeToggle = document.getElementById("toggleTheme");
+//---------------------------- Color change for different features ----------------------------//
+const askButton = document.getElementById("askButton");
+const summarizeButton = document.getElementById("summarizeButton");
 
 //load saved theme from storage
-chrome.storage.local.get(["darkMode"], (data) => {
-    if (data.darkMode) document.body.classList.add("dark-mode");
+chrome.storage.local.get(["mode"], (data) => {
+    if (data.mode) {
+        document.body.classList.add(data.mode);
+    }
 });
 
-themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    const isDark = document.body.classList.contains("dark-mode");
+askButton.addEventListener("click", () => {
+    document.body.classList.toggle("ask-mode", true);
+    chrome.storage.local.set({ mode: "ask-mode" });
+});
 
-    chrome.storage.local.set({ darkMode: isDark });
+summarizeButton.addEventListener("click", () => {
+    document.body.classList.toggle("summary-mode", false);
+    chrome.storage.local.set({ mode: "summary-mode" });
 });
