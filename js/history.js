@@ -1,39 +1,42 @@
 const historyList = document.getElementById("historyList");
+const askButton = document.getElementById("askButton");
+const summarizeButton = document.getElementById("summarizeButton");
+summaryHistory = [];
+promptHistory = [];
 
-window.saveToHistory = async function (text, response) {
-  try {
-    const { history } = await chrome.storage.local.get("history");
-    const updatedHistory = history || [];
+window.saveToHistory = async function (text, response, source) {
+    try{
+        if (source === "prompt") {
+        promptHistory.push({ text, response, timestamp: new Date().toLocaleDateString() });
+        await chrome.storage.local.set({ promptHistory });
+    } else if (source === "summary") {
+        summaryHistory.push({ text, response, timestamp: new Date().toLocaleDateString() });
+        await chrome.storage.local.set({ summaryHistory });
+    }
 
-    updatedHistory.push({
-      text,
-      response,
-      timestamp: new Date().toLocaleDateString()
-    });
-
-    await chrome.storage.local.set({ history: updatedHistory});
-
-    window.loadHistory();
-
-  } catch (e) {
-    console.error("Error saving to history:", e);
-  }
+    window.loadHistory(source);
+    
+    } catch (e) {
+        console.error("Error saving to history:", e);
+    }
 }
 
 // Function to render history
-window.loadHistory = async function() {
+window.loadHistory = async function(source) {
   historyList.innerHTML = "";
-  const { history } = await chrome.storage.local.get("history");
 
-  if (!history || history.length === 0) {
-    const li = document.createElement("li");
-    li.classList.add("empty-state");
-    li.textContent = "No history yet.";
-    historyList.appendChild(li);
-    return;
-  }
+  if (source === "prompt") {
+    const { promptHistory } = await chrome.storage.local.get("promptHistory");
 
-  for (const entry of history) {
+    if (!promptHistory || promptHistory.length === 0) {
+        const li = document.createElement("li");
+        li.classList.add("empty-state");
+        li.textContent = "No history yet.";
+        promptHistory.appendChild(li);
+        return;
+    }
+
+    for (const entry of history) {
     const li = document.createElement("li");
     li.innerHTML = `
       <strong>${entry.timestamp}</strong><br>
@@ -41,7 +44,27 @@ window.loadHistory = async function() {
       <em>Response:</em> ${entry.response}
     `;
     historyList.appendChild(li);
-  }
+    }
+    } else if (source === "summary") {
+    const { summaryHistory } = await chrome.storage.local.get("summaryHistory");
+    if (!summaryHistory || summaryHistory.length === 0) {
+        const li = document.createElement("li");
+        li.classList.add("empty-state");
+        li.textContent = "No history yet.";
+        summaryHistory.appendChild(li);
+        return;
+    }
+
+    for (const entry of history) {
+    const li = document.createElement("li");
+    li.innerHTML = `
+        <strong>${entry.timestamp}</strong><br>
+        <em>Text:</em> ${entry.text}<br>
+        <em>Response:</em> ${entry.response}
+    `;
+    historyList.appendChild(li);
+    }
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
