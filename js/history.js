@@ -25,6 +25,8 @@ window.saveToHistory = async function (text, response, source) {
 window.loadHistory = async function(source) {
   historyList.innerHTML = "";
 
+  const li = document.createElement("li");
+
   if (source === "prompt") {
     const { promptHistory } = await chrome.storage.local.get("promptHistory");
 
@@ -37,13 +39,18 @@ window.loadHistory = async function(source) {
     }
 
     for (const entry of promptHistory) {
-    const li = document.createElement("li");
     li.innerHTML = `
       <strong>${entry.timestamp}</strong><br>
       <em>Text:</em> ${entry.text}<br>
       <em>Response:</em> ${entry.response}
     `;
+
+    const addNotes = document.createElement("button");
+    addNotes.textContent = "+";
+    addNotes.classList.add("add-notes-button");
+
     historyList.appendChild(li);
+    historyList.appendChild(addNotes);
     }
     } else if (source === "summary") {
     const { summaryHistory } = await chrome.storage.local.get("summaryHistory");
@@ -62,7 +69,12 @@ window.loadHistory = async function(source) {
         <em>Text:</em> ${entry.text}<br>
         <em>Response:</em> ${entry.response}
     `;
+    const addNotes = document.createElement("button");
+    addNotes.textContent = "+";
+    addNotes.classList.add("add-notes-button");
+
     historyList.appendChild(li);
+    historyList.appendChild(addNotes);
     }
     }
 }
