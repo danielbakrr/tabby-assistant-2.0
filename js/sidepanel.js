@@ -42,6 +42,9 @@ let session = null;
 
 //listen for messages
 document.getElementById("askButton").addEventListener("click", async () => {
+    document.body.classList.remove("summary-mode");
+    document.body.classList.add("ask-mode");
+    chrome.storage.local.set({ mode: "ask-mode" });
     await loadHistory("prompt"); // immediately populate history after clicking button
     const text = selectionTextEl.textContent.trim();
     if (!text) {
@@ -108,6 +111,9 @@ let summarizer = null;
 
 //send message when summarize button is clicked
 document.getElementById("summarizeButton").addEventListener("click", async () => {
+    document.body.classList.remove("ask-mode");
+    document.body.classList.add("summary-mode");
+    chrome.storage.local.set({ mode: "summary-mode" });
     await loadHistory("summary"); // immediately populate history after clicking button
     const text = selectionTextEl.textContent.trim();
 
@@ -133,23 +139,10 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
     }
 });
 
-//---------------------------- Color change for different features ----------------------------//
-const askButton = document.getElementById("askButton");
-const summarizeButton = document.getElementById("summarizeButton");
-
+//---------------------------- Persistent Theme ----------------------------//
 //load saved theme from storage
 chrome.storage.local.get(["mode"], (data) => {
     if (data.mode) {
         document.body.classList.add(data.mode);
     }
-});
-
-askButton.addEventListener("click", () => {
-    document.body.classList.toggle("ask-mode", true);
-    chrome.storage.local.set({ mode: "ask-mode" });
-});
-
-summarizeButton.addEventListener("click", () => {
-    document.body.classList.toggle("summary-mode", false);
-    chrome.storage.local.set({ mode: "summary-mode" });
 });

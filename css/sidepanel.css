@@ -1,27 +1,27 @@
- .ask-mode {
-    --bg: #0f111a;
-    --section-bg: #1a1c2b;
-    --text: #e4e6eb;
-    --text-muted: #777b8a;
-    --accent: #4e5eff;
+.ask-mode {
+    --bg: #0e0f19;
+    --section-bg: #1b1d2d;
+    --text: #e6e8f0;
+    --text-muted: #8a8fa3;
+    --accent: #5865f2;
     --border: #3a3f5c;
-    --button-bg: #3a3f5c; 
-    --button-hover: #4e5eff;
-    --history-bg: #222436;
-    --shadow: rgba(0, 0, 0, 0.3);
+    --button-bg: #2b2e45;
+    --button-hover: #5865f2;
+    --history-bg: #22253a;
+    --shadow: rgba(0, 0, 0, 0.35);
 }
 
 .summary-mode {
-    --bg: #121212;
-    --section-bg: #1e1e1e;
-    --text: #e0e0e0;
-    --text-muted: #888;
-    --accent: #667eea;
-    --border: #444;
-    --button-bg: #2c2c2c;
-    --button-hover: #3a3a3a;
-    --history-bg: #2c2c2c;
-    --shadow: rgba(0, 0, 0, 0.5);
+    --bg: #111018;
+    --section-bg: #1d1c27;
+    --text: #e3e3eb;
+    --text-muted: #9b9bb2;
+    --accent: #6bbf59;
+    --border: #38384d;
+    --button-bg: #2b2b3a;
+    --button-hover: #6bbf59;
+    --history-bg: #242434;
+    --shadow: rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -36,7 +36,9 @@ body {
     min-height: 100vh;
     padding: 16px;
     color: var(--text);
+    transition: background 0.3s ease, color 0.3s ease;
 }
+
 
 header {
     padding: 20px;
