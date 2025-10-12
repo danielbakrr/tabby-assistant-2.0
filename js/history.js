@@ -1,6 +1,4 @@
 const historyList = document.getElementById("historyList");
-const askButton = document.getElementById("askButton");
-const summarizeButton = document.getElementById("summarizeButton");
 summaryHistory = [];
 promptHistory = [];
 
