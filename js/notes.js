@@ -1,6 +1,8 @@
 window.saveNotes = async function(text, response) {
     try {
-        const { notes } = await chrome.storage.local.get("notes");
+        const result = await chrome.storage.local.get("notes");
+        const notes = result.notes || [];
+        
         const newNote = { text, response };
         notes.push(newNote);
 
