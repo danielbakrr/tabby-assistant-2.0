@@ -6,7 +6,7 @@ AI integrated study assistant chrome extension
 - optimize processing speed??
 
 2. Summary API for clear, concise information (e.g flashcards)
-- changed flashcards as separate feature
+- changed flashcards as separate feature, yet to implement
 
 3. Translation API for multilingualism
 -yet to implement
@@ -19,6 +19,6 @@ AI integrated study assistant chrome extension
 
 6. Persistent History functonality
 - implemented for prompt function
-- yet to implement for summarize
+- implemented for summarize function
 
 7. Timed function to record study session
