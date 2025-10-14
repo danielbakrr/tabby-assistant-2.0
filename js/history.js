@@ -46,11 +46,27 @@ window.loadHistory = async function (source) {
         const addNotes = document.createElement("button");
         addNotes.textContent = "+";
         addNotes.classList.add("add-notes-button");
+        addNotes.dataset.saveNotes = "false";
 
         addNotes.addEventListener("click", async () => {
-            if (window.saveNotes) {
+            if (!window.saveNotes || !window.removeNotes) {
+                console.log("Notes functions not available yet.");
+                return;
+            }
+
+            else if (addNotes.dataset.saveNotes === "false") {
                 await window.saveNotes(entry.text, entry.response);
-            } else {
+                addNotes.textContent = "✓";
+                addNotes.dataset.saveNotes = "true";
+            }
+
+            else if (addNotes.datatset.saveNotes === "true") {
+                await window.removeNotes(entry.text);
+                addNotes.textContent = "+";
+                addNotes.dataset.saveNotes = "false";
+            } 
+
+            else {
                 console.error("saveNotes() not found — ensure notes.js is loaded");
             }
         });

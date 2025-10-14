@@ -15,6 +15,23 @@ window.saveNotes = async function(text, response) {
     }
 }
 
+window.removeNotes = async function (textToRemove) {
+    try {
+        const { notes = [] } = await chrome.storage.local.get("notes");
+
+        const updatedNotes = notes.filter(note => note.text !== textToRemove);
+
+        await chrome.storage.local.set({ notes: updatedNotes });
+        console.log("Note removed:", textToRemove);
+
+        await loadNotes();
+    } catch (e) {
+        console.error("Error removing note:", e);
+        alert("Failed to remove note.");
+    }
+};
+
+
 window.loadNotes = async function() {
     try {
         const { notes } = await chrome.storage.local.get("notes");
