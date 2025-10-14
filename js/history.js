@@ -54,13 +54,13 @@ window.loadHistory = async function (source) {
                 return;
             }
 
-            else if (addNotes.dataset.saveNotes === "false") {
+            if (addNotes.dataset.saveNotes === "false") {
                 await window.saveNotes(entry.text, entry.response);
                 addNotes.textContent = "✓";
                 addNotes.dataset.saveNotes = "true";
             }
 
-            else if (addNotes.datatset.saveNotes === "true") {
+            else if (addNotes.dataset.saveNotes === "true") {
                 await window.removeNotes(entry.text);
                 addNotes.textContent = "+";
                 addNotes.dataset.saveNotes = "false";
