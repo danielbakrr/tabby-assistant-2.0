@@ -7,8 +7,7 @@ window.saveNotes = async function(text, response) {
         notes.push(newNote);
 
         await chrome.storage.local.set({ notes });
-
-        alert("Note saved!");
+        
     } catch (e) {
         console.error("Error saving note:", e);
         alert("Failed to save note.");
