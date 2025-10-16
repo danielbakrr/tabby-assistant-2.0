@@ -19,6 +19,7 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
 
  - Use local caching or background fetch for re-requests
 
+
 2. 🧠 Summary Generator (Compressed Explanations)
 
 - Description: Provides concise summaries from selected text. Designed for flashcard generation and fast review.
@@ -34,6 +35,7 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
 
  - Option to convert summary to flashcard with one click
 
+
 3. 🌐 Translation API
 
 - Description: Translate highlighted text to different languages.
@@ -46,6 +48,7 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
  - Add UI dropdown for language selection
  
  - Support right-to-left language formatting
+
 
 4. 🖼️ Multimodal Support (Images)
 
@@ -62,11 +65,13 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
 
  - Drag & drop or screenshot integration
 
+
 5. 🪟 Side Panel / Split-Screen Mode
 
 - Description: Use Chrome’s side panel API to offer non-intrusive, always-visible assistance.
 
 - Status: ✅ Fully implemented
+
 
 6. 📚 Persistent History
 
@@ -80,6 +85,7 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
 
  - Export history to PDF or Google Docs
 
+
 7. ⏱️ Study Timer
 
 - Description: Records time spent studying using the extension.
@@ -92,6 +98,7 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
  - Display total time studied per day/week
 
  - Optional reminder notifications
+
 
 🔜 Suggested Additional Enhancements
 
