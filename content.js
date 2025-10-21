@@ -1,26 +1,27 @@
 let timerStarted = false;
 
-//create highlighted selection
-document.addEventListener('mouseup', function() {
-    const selected = window.getSelection();
-    if (!selected) return;
-
-    const text = selected.toString().trim();
-    if (!text) return;
-    
-    if (text && !timerStarted){
-        try{
-        chrome.runtime.sendMessage({ type: 'selected', text, action: "start"});
+//start timer
+function startTimer() {
+    if (!timerStarted) {
+        chrome.runtime.sendMessage({ action: "start" });
         timerStarted = true;
-        } catch (e) {
-        console.error('Error highlighting selection:', e);
-        }
+        console.log("⏱ Timer started from content script.");
     }
+}
+
+//text selection listener
+document.addEventListener('mouseup', () => {
+    const selection = window.getSelection();
+    if (!selection) return;
+
+    const text = selection.toString().trim();
+    if (!text) return;
+
+    startTimer();
+    chrome.runtime.sendMessage({ type: 'selected', text });
 });
 
-document.addEventListener("click", () => {
-  if (!timerStarted) {
-    chrome.runtime.sendMessage({ action: "start" });
-    timerStarted = true;
-  }
+//listen for general clicks as fallback
+document.addEventListener('click', () => {
+    startTimer();
 });

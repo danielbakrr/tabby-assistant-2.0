@@ -155,8 +155,14 @@ savedButton.addEventListener("click", async () => {
 })
 
 //---------------------------- Timer ----------------------------//
-const totalTimeE1 = document.getElementById("totalTime")
+const totalTimeEl = document.getElementById("totalTime");
 
 chrome.storage.local.get("totalTime", (data) => {
-    totalTimeE1.textContent = data.totalTime || 0;
-})
+    totalTimeEl.textContent = data.totalTime || 0;
+});
+
+chrome.storage.onChanged.addListener((changes) => {
+    if (changes.totalTime) {
+        totalTimeEl.textContent = changes.totalTime.newValue;
+    }
+});
