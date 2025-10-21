@@ -88,6 +88,7 @@ h2 {
     opacity: 0.8;
     margin-bottom: 12px;
     font-weight: 600;
+    margin-top: 12px;
 }
 
 #selectionText, #responseText {

@@ -153,3 +153,10 @@ const savedButton = document.getElementById("savedNotes");
 savedButton.addEventListener("click", async () => {
     window.location.href = "notes.html";
 })
+
+//---------------------------- Timer ----------------------------//
+const totalTimeE1 = document.getElementById("totalTime")
+
+chrome.storage.local.get("totalTime", (data) => {
+    totalTimeE1.textContent = data.totalTime || 0;
+})
