@@ -57,3 +57,10 @@ window.loadNotes = async function() {
 }
 // Load notes when the page is loaded
 document.addEventListener("DOMContentLoaded", loadNotes);
+
+window.addEventListener("DOMContentLoaded", () => {
+    const backButton = document.getElementById("backButton");
+    backButton.addEventListener("click", () => {
+        window.history.back();
+    });
+});

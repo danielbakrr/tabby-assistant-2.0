@@ -221,3 +221,13 @@ button:active {
 .add-notes-button[data-saved="true"]:hover {
     background: #55dd77;
 }
+
+#backButton {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
