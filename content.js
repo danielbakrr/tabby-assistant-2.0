@@ -1,3 +1,5 @@
+const {agentOrchestrator} = require("./js/multi-modal.js")
+
 let timerStarted = false;
 
 //start timer
@@ -25,3 +27,5 @@ document.addEventListener('mouseup', () => {
 document.addEventListener('click', () => {
     startTimer();
 });
+
+agentOrchestrator("Explain einstein theory of relativity");
