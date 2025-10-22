@@ -22,6 +22,12 @@ websites that provides resources, documentation or research papers explaining th
 be accompanied by a site logo prefably a company logo if it exists and the website label which is the name of the website
 ```
 
+const agentOrchestrator = async (prompt) => {
+    // can do event driven if not just manually call the content script 
+    await callImageGen(prompt)
+    await generateRelatedWebSources(prompt)
+}
+
 const callImageGen = async(prompt) => {
 
     const response = await ai.models.generateContent({
@@ -112,4 +118,8 @@ const parseResponse = (promptInfo,response) => {
         // summarize content retrieved 
        }
     }
+}
+
+module.exports = {
+    agentOrchestrator
 }
