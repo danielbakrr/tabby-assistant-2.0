@@ -91,6 +91,12 @@ h2 {
     margin-top: 12px;
 }
 
+#unselectable-text {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none;     /* IE 10 and IE 11 */
+  user-select: none;         /* Standard syntax */
+}
+
 #selectionText, #responseText {
     background: var(--history-bg);
     padding: 16px;
