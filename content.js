@@ -19,9 +19,11 @@ document.addEventListener('mouseup', () => {
     const text = selected.toString().trim();
     if (!text) return;
 
-    startTimer();
-    chrome.runtime.sendMessage({ type: 'selected', text });
-});
+    try{
+        chrome.runtime.sendMessage({ type: 'selected', text});
+    } catch (e) {
+        console.error('Error highlighting selection:', e);
+    }});
 
 //listen for general clicks as fallback
 document.addEventListener('click', () => {
