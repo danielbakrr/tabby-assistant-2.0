@@ -2,6 +2,10 @@
 const selectionTextEl = document.getElementById("selectionText");
 const responseEl = document.getElementById("responseText");
 
+//global ai model variables
+const session = () => window.tabbyAI?.session;
+const summarizer = () => window.tabbyAI?.summarizer;
+
 //---------------------------- Get highlighted text ----------------------------//
 chrome.runtime.onMessage.addListener(async (message) => {
     if (message.type === "selected") {
@@ -12,43 +16,6 @@ chrome.runtime.onMessage.addListener(async (message) => {
 });
 
 //---------------------------- AI Model Integration ----------------------------//
-// let session = null;
-
-// //initialize AI model automatically
-// (async function initAI() {
-//     responseEl.textContent = "Initializing Tabby...";
-//     try {
-//         const avail = await LanguageModel.availability();
-
-//         if (avail === "unavailable") {
-//             responseEl.textContent = "Tabby unavailable. Please update Chrome.";
-//             return;
-//         }
-
-//         if (avail === "downloadable") {
-//             responseEl.textContent = "Downloading Tabby model...";
-//             session = await LanguageModel.create({
-//                 expectedInputs: [{ type: "text", languages: ["en"] }],
-//                 expectedOutputs: [{ type: "text", languages: ["en"] }]
-//             });
-//             await session.append([{ role: "system", content: "You are Tabby, an AI assistant that explains highlighted text clearly." }]);
-//             responseEl.textContent = "Tabby model downloaded and ready!";
-//             return;
-//         }
-
-//         // If already available
-//         session = await LanguageModel.create({
-//             expectedInputs: [{ type: "text", languages: ["en"] }],
-//             expectedOutputs: [{ type: "text", languages: ["en"] }]
-//         });
-//         await session.append([{ role: "system", content: "You are Tabby, an AI assistant that explains highlighted text clearly." }]);
-//         responseEl.textContent = "Tabby is ready!";
-//     } catch (e) {
-//         console.error("Error initializing AI:", e);
-//         responseEl.textContent = "Error initializing Tabby.";
-//     }
-// })();
-
 //listen for messages
 document.getElementById("askButton").addEventListener("click", async () => {
     document.body.classList.remove("summary-mode");
@@ -87,66 +54,35 @@ document.getElementById("askButton").addEventListener("click", async () => {
 });
 
 //---------------------------- Summarizer ----------------------------//
-// let summarizer = null;
+//send message when summarize button is clicked
+document.getElementById("summarizeButton").addEventListener("click", async () => {
+    document.body.classList.remove("ask-mode");
+    document.body.classList.add("summary-mode");
+    chrome.storage.local.set({ mode: "summary-mode" });
+    await loadHistory("summary"); // immediately populate history after clicking button
+    const text = selectionTextEl.textContent.trim();
 
-// //initialize Summarizer automatically
-// (async function initSummarizer() {
-//   try {
-//     const availability = await Summarizer.availability();
+    if (!text) {
+        responseEl.textContent = "Please highlight some text first.";
+        return;
+    }
 
-//     if (availability === "unavailable") {
-//       responseEl.textContent = "Summarizer unavailable. Please check your connection.";
-//       return;
-//     }
+    if (!summarizer) {
+        responseEl.textContent = "Summarizer not ready yet...";
+        return;
+    }
 
-//     if (availability === "downloadable") {
-//       responseEl.textContent = "Summarizer needs user gesture to download.";
-//       return;
-//     }
+    try {
+        responseEl.textContent = "📝 Tabby is summarizing...";
 
-//     summarizer = await Summarizer.create({
-//       type: "key-points",
-//       format: "plain-text",
-//       length: "medium",
-//       sharedContext: "This is educational text for summarization."
-//     });
-
-//     responseEl.textContent = "Summarizer is ready!";
-//   } catch (e) {
-//     console.error("Error initializing Summarizer:", e);
-//     responseEl.textContent = "Error initializing Summarizer.";
-//   }
-// })();
-
-// //send message when summarize button is clicked
-// document.getElementById("summarizeButton").addEventListener("click", async () => {
-//     document.body.classList.remove("ask-mode");
-//     document.body.classList.add("summary-mode");
-//     chrome.storage.local.set({ mode: "summary-mode" });
-//     await loadHistory("summary"); // immediately populate history after clicking button
-//     const text = selectionTextEl.textContent.trim();
-
-//     if (!text) {
-//         responseEl.textContent = "Please highlight some text first.";
-//         return;
-//     }
-
-//     if (!summarizer) {
-//         responseEl.textContent = "Summarizer not ready yet...";
-//         return;
-//     }
-
-//     try {
-//         responseEl.textContent = "📝 Tabby is summarizing...";
-
-//         const summary = await summarizer.summarize(text);
-//         responseEl.textContent = summary;
-//         await saveToHistory(text, summary, "summary"); // add flag to indicate history source
-//     } catch (err) {
-//         console.error("Error generating summary:", err);
-//         responseEl.textContent = "Error generating summary.";
-//     }
-// });
+        const summary = await summarizer.summarize(text);
+        responseEl.textContent = summary;
+        await saveToHistory(text, summary, "summary"); // add flag to indicate history source
+    } catch (err) {
+        console.error("Error generating summary:", err);
+        responseEl.textContent = "Error generating summary.";
+    }
+});
 
 //---------------------------- Persistent Theme ----------------------------//
 //load saved theme from storage
