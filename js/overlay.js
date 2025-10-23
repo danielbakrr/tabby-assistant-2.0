@@ -8,6 +8,15 @@ const welcomeOverlay = document.getElementById("overlay");
 const mainContent = document.getElementById("main");
 const loadingText = document.getElementById("loadingText");
 
+//skip overlay if initialized already
+chrome.storage.local.get("tabbyInitialized", (data) => {
+    if (data.tabbyInitialized) {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("main").classList.add("visible");
+    }
+});
+
+
 startButton.addEventListener("click", async () => {
     loadingText.textContent = "Initializing Tabby AI...";
     startButton.disabled = true;
@@ -39,6 +48,9 @@ startButton.addEventListener("click", async () => {
                 sharedContext: "This is educational text for summarization."
             });
         }
+
+        //flag as initialised
+        chrome.storage.local.set({ tabbyInitialized: true });
 
         // Show UI
         welcomeOverlay.classList.add("fade-out");
