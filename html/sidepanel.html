@@ -8,9 +8,17 @@
     <script src="../js/sidepanel.js" defer></script>
     <script src="../js/history.js" defer></script>
     <script src="../js/notes.js" defer></script>
+    <script src ="../js/overlay.js" defer></script>
 </head>
 <body>
-    <header>
+    <div id="overlay">
+        <h1>🐱 Welcome to Tabby!</h1>
+        <h2>Your all-in-one learning assistant</h2>
+        <button id="startButton">Start</button>
+        <div id="loadingText"></div>
+    </div>
+    <div id="main">
+        <header>
         <h1>🐱 Tabby Teaching Assistant</h1>
     </header>
     <main>
@@ -38,5 +46,6 @@
             </ul>
         </section> 
     </main>
+    </div>
 </body>
 </html>

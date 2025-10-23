@@ -12,42 +12,42 @@ chrome.runtime.onMessage.addListener(async (message) => {
 });
 
 //---------------------------- AI Model Integration ----------------------------//
-let session = null;
+// let session = null;
 
-//initialize AI model automatically
-(async function initAI() {
-    responseEl.textContent = "Initializing Tabby...";
-    try {
-        const avail = await LanguageModel.availability();
+// //initialize AI model automatically
+// (async function initAI() {
+//     responseEl.textContent = "Initializing Tabby...";
+//     try {
+//         const avail = await LanguageModel.availability();
 
-        if (avail === "unavailable") {
-            responseEl.textContent = "Tabby unavailable. Please update Chrome.";
-            return;
-        }
+//         if (avail === "unavailable") {
+//             responseEl.textContent = "Tabby unavailable. Please update Chrome.";
+//             return;
+//         }
 
-        if (avail === "downloadable") {
-            responseEl.textContent = "Downloading Tabby model...";
-            session = await LanguageModel.create({
-                expectedInputs: [{ type: "text", languages: ["en"] }],
-                expectedOutputs: [{ type: "text", languages: ["en"] }]
-            });
-            await session.append([{ role: "system", content: "You are Tabby, an AI assistant that explains highlighted text clearly." }]);
-            responseEl.textContent = "Tabby model downloaded and ready!";
-            return;
-        }
+//         if (avail === "downloadable") {
+//             responseEl.textContent = "Downloading Tabby model...";
+//             session = await LanguageModel.create({
+//                 expectedInputs: [{ type: "text", languages: ["en"] }],
+//                 expectedOutputs: [{ type: "text", languages: ["en"] }]
+//             });
+//             await session.append([{ role: "system", content: "You are Tabby, an AI assistant that explains highlighted text clearly." }]);
+//             responseEl.textContent = "Tabby model downloaded and ready!";
+//             return;
+//         }
 
-        // If already available
-        session = await LanguageModel.create({
-            expectedInputs: [{ type: "text", languages: ["en"] }],
-            expectedOutputs: [{ type: "text", languages: ["en"] }]
-        });
-        await session.append([{ role: "system", content: "You are Tabby, an AI assistant that explains highlighted text clearly." }]);
-        responseEl.textContent = "Tabby is ready!";
-    } catch (e) {
-        console.error("Error initializing AI:", e);
-        responseEl.textContent = "Error initializing Tabby.";
-    }
-})();
+//         // If already available
+//         session = await LanguageModel.create({
+//             expectedInputs: [{ type: "text", languages: ["en"] }],
+//             expectedOutputs: [{ type: "text", languages: ["en"] }]
+//         });
+//         await session.append([{ role: "system", content: "You are Tabby, an AI assistant that explains highlighted text clearly." }]);
+//         responseEl.textContent = "Tabby is ready!";
+//     } catch (e) {
+//         console.error("Error initializing AI:", e);
+//         responseEl.textContent = "Error initializing Tabby.";
+//     }
+// })();
 
 //listen for messages
 document.getElementById("askButton").addEventListener("click", async () => {
