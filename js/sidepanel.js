@@ -30,7 +30,7 @@ document.getElementById("askButton").addEventListener("click", async () => {
 
     responseEl.textContent = "🤔 Tabby is analyzing your text...";
 
-    if (!session) {
+    if (!session()) {
         responseEl.textContent = "Tabby not ready yet...";
         return;
     }
@@ -44,7 +44,7 @@ document.getElementById("askButton").addEventListener("click", async () => {
 
             Text: """${text}"""`;
 
-        const result = await session.prompt(prompt);
+        const result = await session().prompt(prompt);
         responseEl.textContent = result;
         await saveToHistory(text, result, "prompt"); // add flag to indicate history source
     } catch (err) {
@@ -67,7 +67,7 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
         return;
     }
 
-    if (!summarizer) {
+    if (!summarizer()) {
         responseEl.textContent = "Summarizer not ready yet...";
         return;
     }
@@ -75,7 +75,7 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
     try {
         responseEl.textContent = "📝 Tabby is summarizing...";
 
-        const summary = await summarizer.summarize(text);
+        const summary = await summarizer().summarize(text);
         responseEl.textContent = summary;
         await saveToHistory(text, summary, "summary"); // add flag to indicate history source
     } catch (err) {
