@@ -87,66 +87,66 @@ document.getElementById("askButton").addEventListener("click", async () => {
 });
 
 //---------------------------- Summarizer ----------------------------//
-let summarizer = null;
+// let summarizer = null;
 
-//initialize Summarizer automatically
-(async function initSummarizer() {
-  try {
-    const availability = await Summarizer.availability();
+// //initialize Summarizer automatically
+// (async function initSummarizer() {
+//   try {
+//     const availability = await Summarizer.availability();
 
-    if (availability === "unavailable") {
-      responseEl.textContent = "Summarizer unavailable. Please check your connection.";
-      return;
-    }
+//     if (availability === "unavailable") {
+//       responseEl.textContent = "Summarizer unavailable. Please check your connection.";
+//       return;
+//     }
 
-    if (availability === "downloadable") {
-      responseEl.textContent = "Summarizer needs user gesture to download.";
-      return;
-    }
+//     if (availability === "downloadable") {
+//       responseEl.textContent = "Summarizer needs user gesture to download.";
+//       return;
+//     }
 
-    summarizer = await Summarizer.create({
-      type: "key-points",
-      format: "plain-text",
-      length: "medium",
-      sharedContext: "This is educational text for summarization."
-    });
+//     summarizer = await Summarizer.create({
+//       type: "key-points",
+//       format: "plain-text",
+//       length: "medium",
+//       sharedContext: "This is educational text for summarization."
+//     });
 
-    responseEl.textContent = "Summarizer is ready!";
-  } catch (e) {
-    console.error("Error initializing Summarizer:", e);
-    responseEl.textContent = "Error initializing Summarizer.";
-  }
-})();
+//     responseEl.textContent = "Summarizer is ready!";
+//   } catch (e) {
+//     console.error("Error initializing Summarizer:", e);
+//     responseEl.textContent = "Error initializing Summarizer.";
+//   }
+// })();
 
-//send message when summarize button is clicked
-document.getElementById("summarizeButton").addEventListener("click", async () => {
-    document.body.classList.remove("ask-mode");
-    document.body.classList.add("summary-mode");
-    chrome.storage.local.set({ mode: "summary-mode" });
-    await loadHistory("summary"); // immediately populate history after clicking button
-    const text = selectionTextEl.textContent.trim();
+// //send message when summarize button is clicked
+// document.getElementById("summarizeButton").addEventListener("click", async () => {
+//     document.body.classList.remove("ask-mode");
+//     document.body.classList.add("summary-mode");
+//     chrome.storage.local.set({ mode: "summary-mode" });
+//     await loadHistory("summary"); // immediately populate history after clicking button
+//     const text = selectionTextEl.textContent.trim();
 
-    if (!text) {
-        responseEl.textContent = "Please highlight some text first.";
-        return;
-    }
+//     if (!text) {
+//         responseEl.textContent = "Please highlight some text first.";
+//         return;
+//     }
 
-    if (!summarizer) {
-        responseEl.textContent = "Summarizer not ready yet...";
-        return;
-    }
+//     if (!summarizer) {
+//         responseEl.textContent = "Summarizer not ready yet...";
+//         return;
+//     }
 
-    try {
-        responseEl.textContent = "📝 Tabby is summarizing...";
+//     try {
+//         responseEl.textContent = "📝 Tabby is summarizing...";
 
-        const summary = await summarizer.summarize(text);
-        responseEl.textContent = summary;
-        await saveToHistory(text, summary, "summary"); // add flag to indicate history source
-    } catch (err) {
-        console.error("Error generating summary:", err);
-        responseEl.textContent = "Error generating summary.";
-    }
-});
+//         const summary = await summarizer.summarize(text);
+//         responseEl.textContent = summary;
+//         await saveToHistory(text, summary, "summary"); // add flag to indicate history source
+//     } catch (err) {
+//         console.error("Error generating summary:", err);
+//         responseEl.textContent = "Error generating summary.";
+//     }
+// });
 
 //---------------------------- Persistent Theme ----------------------------//
 //load saved theme from storage
