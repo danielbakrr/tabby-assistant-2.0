@@ -19,15 +19,24 @@ let session = null;
     responseEl.textContent = "Initializing Tabby...";
     try {
         const avail = await LanguageModel.availability();
+
         if (avail === "unavailable") {
-            responseEl.textContent = "Tabby unavailable. Please check your connection.";
-            return;
-        }
-        if (avail === "downloadable") {
-            responseEl.textContent = "Tabby needs user gesture to download";
+            responseEl.textContent = "Tabby unavailable. Please update Chrome.";
             return;
         }
 
+        if (avail === "downloadable") {
+            responseEl.textContent = "Downloading Tabby model...";
+            session = await LanguageModel.create({
+                expectedInputs: [{ type: "text", languages: ["en"] }],
+                expectedOutputs: [{ type: "text", languages: ["en"] }]
+            });
+            await session.append([{ role: "system", content: "You are Tabby, an AI assistant that explains highlighted text clearly." }]);
+            responseEl.textContent = "Tabby model downloaded and ready!";
+            return;
+        }
+
+        // If already available
         session = await LanguageModel.create({
             expectedInputs: [{ type: "text", languages: ["en"] }],
             expectedOutputs: [{ type: "text", languages: ["en"] }]
@@ -36,7 +45,7 @@ let session = null;
         responseEl.textContent = "Tabby is ready!";
     } catch (e) {
         console.error("Error initializing AI:", e);
-        responseEl.textContent = "Error initializing Tabby. Please try again later.";
+        responseEl.textContent = "Error initializing Tabby.";
     }
 })();
 
