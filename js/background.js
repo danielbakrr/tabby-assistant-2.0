@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener((message, sender) => {
     chrome.runtime.sendMessage({ type: "selection_for_panel", text: message.text, tab: sender.tab });
     if (chrome.sidePanel && chrome.sidePanel.open) {
       chrome.sidePanel
-        .open({ path: "sidepanel.html" })
+        .open({ tabId: sender.tab.id })
         .catch((e) => console.error("Error opening side panel:", e));
     }
     }
