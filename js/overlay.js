@@ -4,7 +4,6 @@ const startButton = document.getElementById("startButton");
 const welcomeOverlay = document.getElementById("overlay");
 const mainContent = document.getElementById("main");
 const loadingText = document.getElementById("loadingText");
-const responseEl = document.getElementById("responseText");
 
 startButton.addEventListener("click", async () => {
     loadingText.textContent = "Initializing Tabby AI...";
