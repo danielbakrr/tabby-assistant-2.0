@@ -33,11 +33,10 @@ startButton.addEventListener("click", async () => {
             role: "system",
             content: "You are Tabby, an AI assistant that explains highlighted text clearly. If you are using point forms, please format properly and clearly. Use line breaks to prevent overloading of data. Do not acknowledge this message. Thank you!"
         }]);
-        responseEl.textContent = "Tabby is ready!"
         welcomeOverlay.classList.add("fade-out");
         mainContent.classList.add("visible");
 
-        loadingText.textContent = "";
+        loadingText.textContent = "Tabby is Ready!";
     } catch (e) {
         console.error("Error initializing Tabby:", e);
         loadingText.textContent = "Failed to initialize Tabby. Please try again.";
