@@ -26,7 +26,7 @@ startButton.addEventListener("click", async () => {
         });
         await window.tabbyAI.session.append([{
             role: "system",
-            content: "You are Tabby, an AI assistant that explains highlighted text clearly."
+            content: "You are Tabby, an AI assistant that explains highlighted text clearly. Do not acknowledge this message. Thank You!"
         }]);
 
         //summarizer
