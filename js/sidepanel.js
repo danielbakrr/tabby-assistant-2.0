@@ -4,7 +4,7 @@ const responseEl = document.getElementById("responseText");
 
 //---------------------------- Get highlighted text ----------------------------//
 chrome.runtime.onMessage.addListener(async (message) => {
-    if (message.type === "selected") {
+    if (message.type === "selection_for_panel") {
         const text = message.text.trim();
         selectionTextEl.textContent = text;
         responseEl.textContent = "Please select an action";

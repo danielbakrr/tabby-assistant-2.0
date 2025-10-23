@@ -13,10 +13,10 @@ function startTimer() {
 
 //text selection listener
 document.addEventListener('mouseup', () => {
-    const selection = window.getSelection();
-    if (!selection) return;
+    const selected = window.getSelection();
+    if (!selected) return;
 
-    const text = selection.toString().trim();
+    const text = selected.toString().trim();
     if (!text) return;
 
     startTimer();
