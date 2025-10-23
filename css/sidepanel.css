@@ -187,13 +187,13 @@ button:active {
     background: #6a7fff;
 }
 
-
+/*----------------------------------dynamic 'add-notes' btn--------------------------*/
 
 .add-notes-button {
     background: var(--button-bg);
     color: var(--text);
     border: 1px solid var(--border);
-    border-radius: 50%;
+    border-radius: 12px;
     width: 32px;
     height: 32px;
     font-size: 18px;
@@ -222,8 +222,9 @@ button:active {
 .add-notes-button[data-saved="true"]:hover {
     background: #55dd77;
 }
-
+/*--------------------------------------back btn----------------------------------------*/
 #backButton {
+    max-width: fit-content;
     position: absolute;
     top: 30px;
     left: 20px;
