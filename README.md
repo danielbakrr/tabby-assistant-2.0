@@ -8,7 +8,6 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
 
 - Description: Allows users to highlight text and receive in-depth, age-adaptable explanations.
 
-- Status: Implemented
 - To-Do:
 
  - Edit AI responses: Allow manual formatting (e.g. bolding, headings) in output panel.
@@ -17,23 +16,22 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
  
  - Preprocess text before sending to the model (e.g., chunking or cleaning)
 
- - Use local caching or background fetch for re-requests
+ - Use local caching or background fetch for re-requests✅
 
 
 2. 🧠 Summary Generator (Compressed Explanations)
 
 - Description: Provides concise summaries from selected text. Designed for flashcard generation and fast review.
 
-- Status: Implemented (Summary), Flashcards TBD
 - To-Do:
 
- - Build a Flashcard component:
+ - Build a Flashcard component:✅
 
  - Front/back card layout
 
- - Add to deck or study mode
+ - Add to deck or study mode✅
 
- - Option to convert summary to flashcard with one click
+ - Option to convert summary to flashcard with one click✅
 
 
 3. 🌐 Translation API
@@ -68,20 +66,16 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
 
 5. 🪟 Side Panel / Split-Screen Mode
 
-- Description: Use Chrome’s side panel API to offer non-intrusive, always-visible assistance.
-
-- Status: ✅ Fully implemented
+- Description: Use Chrome’s side panel API to offer non-intrusive, always-visible assistance.✅
 
 
 6. 📚 Persistent History
 
 - Description: Save and review previous prompts and summaries.
-
-- Status: ✅ Implemented for Prompt and Summary persistent storage:
   
 - To-Do:
 
- - Allow tag-based search
+ - Allow tag-based search✅
 
  - Export history to PDF or Google Docs
 
@@ -108,7 +102,7 @@ Tabby is an AI-powered Chrome extension that enhances learning through contextua
 
 - Text-to-speech readback for explanations
 
-- Theme Customization
+- Theme Customization✅
 
 - Light/Dark mode toggle
 
