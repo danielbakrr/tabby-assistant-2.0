@@ -98,3 +98,10 @@ const savedButton = document.getElementById("savedNotes");
 savedButton.addEventListener("click", async () => {
     window.location.href = "notes.html";
 })
+
+//---------------------------- Notes Redirect ----------------------------//
+const flashcardButton = document.getElementById("flashCards");
+
+savedButton.addEventListener("click", async () => {
+    window.location.href = "flashcards.html";
+})
