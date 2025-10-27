@@ -51,12 +51,21 @@ function displayDecks(){
             <button class="addCardsBtn">➕ Add Notes</button>
             <button class="reviewBtn">📖 Review</button>
         `;
+
+        //add notes button
         deckEl.querySelector(".addCardsBtn").addEventListener("click", () => {
-            //save selected deck index and redirect to notes page
             chrome.storage.local.set({ currentDeckIndex: index }, () => {
                 window.location.href = "notes.html?fromFlashcards=true";
             });
         });
+
+        //review button
+        deckEl.querySelector(".reviewBtn").addEventListener("click", () => {
+            chrome.storage.local.set({ currentDeckIndex: index }, () => {
+                window.location.href = "flashcardReview.html";
+            });
+        });
+
         decksList.appendChild(deckEl);
     });
 }
@@ -82,14 +91,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
 let currentDeckIndex = null
 let currentCardIndex = 0
-
-//redirect to flashcard review page
-const reviewBtn = document.getElementById("reviewBtn");
-reviewBtn.addEventListener("click", () => {
-    chrome.storage.local.set({ currentDeckIndex: index }, () => {
-        window.location.href = "flashcardReview.html";
-    });
-});
 
 function showCard() {
     if (!decks[currentDeckIndex]) return;
