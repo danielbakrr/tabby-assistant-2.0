@@ -102,6 +102,6 @@ savedButton.addEventListener("click", async () => {
 //---------------------------- Notes Redirect ----------------------------//
 const flashcardButton = document.getElementById("flashCards");
 
-savedButton.addEventListener("click", async () => {
+flashcardButton.addEventListener("click", async () => {
     window.location.href = "flashcards.html";
 })
