@@ -48,9 +48,9 @@ function displayDecks(){
         deckEl.innerHTML = `
             <h3>${deck.name}</h3>
             <p>${deck.flashcards.length} flashcards</p>
-            <button class="addCardsBtn">➕ Add Notes</button>
-            <button class="reviewBtn">📖 Review</button>
-            <button class="deleteBtn">🗑 Delete</button>
+            <button class="addCardsBtn">➕</button>
+            <button class="reviewBtn">📚</button>
+            <button class="deleteBtn">🗑</button>
         `;
 
         //add notes button
