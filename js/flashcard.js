@@ -50,6 +50,7 @@ function displayDecks(){
             <p>${deck.flashcards.length} flashcards</p>
             <button class="addCardsBtn">➕ Add Notes</button>
             <button class="reviewBtn">📖 Review</button>
+            <button class="deleteBtn">🗑 Delete</button>
         `;
 
         //add notes button
@@ -64,6 +65,14 @@ function displayDecks(){
             chrome.storage.local.set({ currentDeckIndex: index }, () => {
                 window.location.href = "flashcardReview.html";
             });
+        });
+
+        //delete button
+        deckEl.querySelector(".deleteBtn").addEventListener("click", () => {
+            if (confirm(`Delete deck "${deck.name}"?`)) {
+                decks.splice(index, 1);
+                chrome.storage.local.set({ decks }, displayDecks);
+            }
         });
 
         decksList.appendChild(deckEl);
