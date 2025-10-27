@@ -268,3 +268,20 @@ button:active {
 #main.visible {
     opacity: 1;
 }
+
+
+/*-----------------------------------search notes--------------------------------------*/
+#searchNotes {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+#searchNotes:focus {
+    outline: none;
+    border-color: #6c63ff;
+    box-shadow: 0 0 3px rgba(108, 99, 255, 0.4);
+}
+
