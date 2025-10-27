@@ -76,3 +76,53 @@ window.addEventListener("DOMContentLoaded", () => {
 
     loadDecks();
 });
+
+//--------------------------------------Flashcard Review------------------------------------//
+
+let currentDeckIndex = null
+let currentCardIndex = 0
+
+function showCard() {
+    if (!decks[currentDeckIndex]) return;
+    const card = decks[currentDeckIndex].flashcards[currentCardIndex];
+    if (!card) return;
+
+    document.getElementById("question").textContent = card.question;
+    const answerEl = document.getElementById("answer");
+    answerEl.textContent = card.answer;
+    answerEl.style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    document.getElementById("backButton").addEventListener("click", () => window.history.back());
+
+    const storageData = await chrome.storage.local.get(["decks", "currentDeckIndex"]);
+    decks = storageData.decks || [];
+    currentDeckIndex = storageData.currentDeckIndex;
+
+    if (!decks[currentDeckIndex] || decks[currentDeckIndex].flashcards.length === 0) {
+        alert("No flashcards in this deck.");
+        return;
+    }
+
+    showCard();
+
+    document.getElementById("flipBtn").addEventListener("click", () => {
+        const answerEl = document.getElementById("answer");
+        answerEl.style.display = answerEl.style.display === "none" ? "block" : "none";
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        if (currentCardIndex < decks[currentDeckIndex].flashcards.length - 1) {
+            currentCardIndex++;
+            showCard();
+        }
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        if (currentCardIndex > 0) {
+            currentCardIndex--;
+            showCard();
+        }
+    });
+});
