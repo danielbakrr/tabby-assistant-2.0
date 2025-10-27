@@ -86,9 +86,7 @@ let currentCardIndex = 0
 //redirect to flashcard review page
 const reviewBtn = document.getElementById("reviewBtn");
 reviewBtn.addEventListener("click", () => {
-    chrome.storage.local.set({ currentDeckIndex: index }, () => {
-        window.location.href = "flashcardReview.html";
-    });
+    window.location.href = "flashcardReview.html";
 });
 
 function showCard() {
