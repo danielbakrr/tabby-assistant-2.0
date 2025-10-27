@@ -31,11 +31,12 @@ window.removeNotes = async function (textToRemove) {
 };
 
 
-window.loadNotes = async function() {
+window.loadNotes = async function () {
     try {
         const { notes } = await chrome.storage.local.get("notes");
         const notesList = document.getElementById("notesList");
         notesList.innerHTML = "";
+
         if (!notes || notes.length === 0) {
             const li = document.createElement("li");
             li.classList.add("empty-state");
@@ -43,18 +44,34 @@ window.loadNotes = async function() {
             notesList.appendChild(li);
             return;
         }
+
         for (const note of notes) {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <strong>Text:</strong> ${note.text}<br>
-                <strong>Note:</strong> ${note.response}
-            `;
-            notesList.appendChild(li);
+            const noteContainer = document.createElement("div");
+            noteContainer.classList.add("note-container");
+
+            const textEl = document.createElement("p");
+            textEl.innerHTML = `<strong>Text:</strong> ${note.text}`;
+
+            const responseEl = document.createElement("p");
+            responseEl.innerHTML = `<strong>Note:</strong> ${note.response}`;
+
+            //delete note call function
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "🗑 Delete";
+            deleteBtn.classList.add("delete-btn");
+            deleteBtn.addEventListener("click", () => removeNotes(note.text));
+
+            //append elements
+            noteContainer.appendChild(textEl);
+            noteContainer.appendChild(responseEl);
+            noteContainer.appendChild(deleteBtn);
+            notesList.appendChild(noteContainer);
         }
     } catch (e) {
         console.error("Error loading notes:", e);
     }
-}
+};
+
 // Load notes when the page is loaded
 document.addEventListener("DOMContentLoaded", loadNotes);
 
