@@ -49,6 +49,7 @@ function displayDecks(){
             <h3>${deck.name}</h3>
             <p>${deck.flashcards.length} flashcards</p>
             <button class="addCardsBtn">➕ Add Notes</button>
+            <button class="reviewBtn">📖 Review</button>
         `;
         deckEl.querySelector(".addCardsBtn").addEventListener("click", () => {
             //save selected deck index and redirect to notes page
@@ -81,6 +82,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
 let currentDeckIndex = null
 let currentCardIndex = 0
+
+//redirect to flashcard review page
+const reviewBtn = document.getElementById("reviewBtn");
+reviewBtn.addEventListener("click", () => {
+    chrome.storage.local.set({ currentDeckIndex: index }, () => {
+        window.location.href = "flashcardReview.html";
+    });
+});
 
 function showCard() {
     if (!decks[currentDeckIndex]) return;
