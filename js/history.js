@@ -62,7 +62,7 @@ window.loadHistory = async function (source) {
 
             else if (addNotes.dataset.saveNotes === "true") {
                 await window.removeNotes(entry.text);
-                addNotes.textContent = "+";
+                addNotes.textContent = "➕";
                 addNotes.dataset.saveNotes = "false";
             } 
 
