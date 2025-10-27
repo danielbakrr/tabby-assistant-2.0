@@ -42,24 +42,37 @@ function displayDecks(){
         return;
     }
 
-    for (deck in decksList){
-        const noteContainer = document.createElement("div");
-        noteContainer.classList.add("note-container");
-
-        const textEl = document.createElement("p");
-        textEl.innerHTML = `<strong>Text:</strong> ${note.text}`;
-
-        const responseEl = document.createElement("p");
-        responseEl.innerHTML = `<strong>Note:</strong> ${note.response}`;
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "🗑 Delete";
-        deleteBtn.classList.add("delete-btn");
-        deleteBtn.addEventListener("click", () => removeNotes(note.text));
-
-        noteContainer.appendChild(textEl);
-        noteContainer.appendChild(responseEl);
-        noteContainer.appendChild(deleteBtn);
-        notesList.appendChild(noteContainer);
-    }
+    decks.forEach((deck, index) => {
+        const deckEl = document.createElement("div");
+        deckEl.classList.add("deck-container");
+        deckEl.innerHTML = `
+            <h3>${deck.name}</h3>
+            <p>${deck.flashcards.length} flashcards</p>
+            <button class="addCardsBtn">➕ Add Notes</button>
+        `;
+        deckEl.querySelector(".addCardsBtn").addEventListener("click", () => {
+            //save selected deck index and redirect to notes page
+            chrome.storage.local.set({ currentDeckIndex: index }, () => {
+                window.location.href = "notes.html?fromFlashcards=true";
+            });
+        });
+        decksList.appendChild(deckEl);
+    });
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    const backButton = document.getElementById("backButton");
+    backButton.addEventListener("click", () => {
+        window.history.back();
+    });
+    const newDeckButton = document.getElementById("newDeckBtn");
+    newDeckButton.addEventListener("click", () => {
+        const deckName = prompt("Enter deck name:");
+        if (!deckName) return;
+        decks.push({ name: deckName, flashcards: [] });
+        saveDecks();
+        renderDecks();
+    });
+
+    loadDecks();
+});
