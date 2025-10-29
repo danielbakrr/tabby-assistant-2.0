@@ -190,6 +190,10 @@ button:active {
     background: #6a7fff;
 }
 
+#loadingText {
+    margin-top: 8px;
+}
+
 /*----------------------------------dynamic 'add-notes' btn--------------------------*/
 
 .add-notes-button {
@@ -286,3 +290,6 @@ button:active {
 }
 
 /*-----------------------------------flashcard decks--------------------------------------*/
+#decksList {
+    margin-top: 10px;
+}
