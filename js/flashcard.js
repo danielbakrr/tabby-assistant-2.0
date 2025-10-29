@@ -48,9 +48,11 @@ function displayDecks(){
         deckEl.innerHTML = `
             <h3>${deck.name}</h3>
             <p>${deck.flashcards.length} flashcards</p>
-            <button class="addCardsBtn">➕</button>
-            <button class="reviewBtn">📚</button>
-            <button class="deleteBtn">🗑</button>
+            <div class="deck-buttons">
+                <button class="addCardsBtn">➕ Add</button>
+                <button class="reviewBtn">📚 Review</button>
+                <button class="deleteBtn">🗑 Delete</button>
+            </div>
         `;
 
         //add notes button
@@ -114,6 +116,12 @@ function showCard() {
 
 document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("backButton").addEventListener("click", () => window.history.back());
+
+    if (decks[currentDeckIndex]) {
+        document.getElementById("deckName").textContent = decks[currentDeckIndex].name;
+    } else {
+        document.getElementById("deckName").textContent = "Unknown Deck";
+    }
 
     const storageData = await chrome.storage.local.get(["decks", "currentDeckIndex"]);
     decks = storageData.decks || [];
