@@ -13,15 +13,25 @@
         <h1 id="deckName"></h1>
     </header>
     <main>
-        <section id="reviewArea">
-            <div id="flashcard" class="flashcard">
-                <p id="question">Question will appear here</p>
-                <p id="answer" style="display:none;">Answer will appear here</p>
+    <section id="reviewArea">
+        <div class="flashcard" id="flashcard">
+            <div class="flashcard-inner">
+                <div class="flashcard-front">
+                    <p id="question">Question will appear here</p>
+                </div>
+                <div class="flashcard-back">
+                    <p id="answer">Answer will appear here</p>
+                </div>
             </div>
-            <button id="flipBtn">Flip Card</button>
+        </div>
+
+        <div class="nav-buttons">
             <button id="prevBtn">◀️</button>
+            <button id="deleteBtn">🗑</button>
             <button id="nextBtn">▶️</button>
-        </section>
+        </div>
+    </section>
     </main>
+
 </body>
 </html>

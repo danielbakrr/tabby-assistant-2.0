@@ -99,29 +99,29 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 //--------------------------------------Flashcard Review------------------------------------//
-
-let currentDeckIndex = null
-let currentCardIndex = 0
+let currentDeckIndex = null;
+let currentCardIndex = 0;
 
 function showCard() {
+    const flashcard = document.getElementById("flashcard");
     if (!decks[currentDeckIndex]) return;
+
     const card = decks[currentDeckIndex].flashcards[currentCardIndex];
-    if (!card) return;
+    if (!card) {
+        document.getElementById("question").textContent = "No more flashcards!";
+        document.getElementById("answer").textContent = "";
+        flashcard.classList.remove("is-flipped");
+        return;
+    }
 
     document.getElementById("question").textContent = card.question;
-    const answerEl = document.getElementById("answer");
-    answerEl.textContent = card.answer;
-    answerEl.style.display = "none";
+    document.getElementById("answer").textContent = card.answer;
+
+    flashcard.classList.remove("is-flipped");
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("backButton").addEventListener("click", () => window.history.back());
-
-    if (decks[currentDeckIndex]) {
-        document.getElementById("deckName").textContent = decks[currentDeckIndex].name;
-    } else {
-        document.getElementById("deckName").textContent = "Unknown Deck";
-    }
 
     const storageData = await chrome.storage.local.get(["decks", "currentDeckIndex"]);
     decks = storageData.decks || [];
@@ -132,11 +132,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
+    document.getElementById("deckName").textContent = decks[currentDeckIndex].name;
+
     showCard();
 
-    document.getElementById("flipBtn").addEventListener("click", () => {
-        const answerEl = document.getElementById("answer");
-        answerEl.style.display = answerEl.style.display === "none" ? "block" : "none";
+    const flashcard = document.getElementById("flashcard");
+
+    flashcard.addEventListener("click", () => {
+        flashcard.classList.toggle("is-flipped");
     });
 
     document.getElementById("nextBtn").addEventListener("click", () => {
@@ -151,5 +154,26 @@ document.addEventListener("DOMContentLoaded", async () => {
             currentCardIndex--;
             showCard();
         }
+    });
+
+    document.getElementById("deleteBtn").addEventListener("click", async () => {
+        const confirmDelete = confirm("Delete this flashcard?");
+        if (!confirmDelete) return;
+
+        decks[currentDeckIndex].flashcards.splice(currentCardIndex, 1);
+
+        if (currentCardIndex >= decks[currentDeckIndex].flashcards.length) {
+            currentCardIndex = Math.max(0, decks[currentDeckIndex].flashcards.length - 1);
+        }
+
+        await chrome.storage.local.set({ decks });
+
+        if (decks[currentDeckIndex].flashcards.length === 0) {
+            alert("All flashcards deleted!");
+            window.history.back();
+            return;
+        }
+
+        showCard();
     });
 });
