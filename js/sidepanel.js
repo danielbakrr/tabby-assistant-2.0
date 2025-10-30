@@ -51,7 +51,6 @@ document.getElementById("askButton").addEventListener("click", async () => {
         .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")  // bold
         .replace(/\n\s*-\s*(.*?)(?=\n|$)/g, "<li>$1</li>") // bullets
         .replace(/\n{2,}/g, "<br><br>") // double line breaks
-        .replace(/\s\*\s(.*)/g, "<li>$1</li>"); // bullet for specific casaes
 
         responseEl.innerHTML = formattedResult;
 
@@ -90,8 +89,7 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
         const formattedResult = summary
         .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")  // bold
         .replace(/\n\s*-\s*(.*?)(?=\n|$)/g, "<li>$1</li>") // bullets
-        .replace(/\n{2,}/g, "<br><br>")                // double line breaks
-        .replace(/\s\*\s(.*)/g, "<li>$1</li>");
+        .replace(/\n{2,}/g, "<br><br>") // double line breaks
 
         responseEl.innerHTML = formattedResult;
 
