@@ -49,7 +49,7 @@ document.getElementById("askButton").addEventListener("click", async () => {
         // Convert Markdown-like formatting
         const formattedResult = result
         .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")  // bold
-        .replace(/\n\s*-\s*(.*?)(?=\n|$)/g, "<li>$1</li>") // bullets
+        .replace(/\n\s*\*\s*(.*?)(?=\n|$)/g, "<li>$1</li>") // bullets
         .replace(/\n{2,}/g, "<br><br>") // double line breaks
 
         responseEl.innerHTML = formattedResult;
@@ -88,7 +88,7 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
         // Convert Markdown-like formatting
         const formattedResult = summary
         .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")  // bold
-        .replace(/\n\s*-\s*(.*?)(?=\n|$)/g, "<li>$1</li>") // bullets
+        .replace(/\n\s*\*\s*(.*?)(?=\n|$)/g, "<li>$1</li>") // bullets
         .replace(/\n{2,}/g, "<br><br>") // double line breaks
 
         responseEl.innerHTML = formattedResult;
