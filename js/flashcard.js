@@ -13,7 +13,7 @@ function loadDecks(){
 
 //prompt gemini to generate question and answer
 async function generateFlashcard(text, response) {
-    const prompt = `
+    const promptText = `
         Turn the following note into a simple flashcard with a question and answer format.
         Derive the answer from the response, but ensure both the question and answer are shortened versions of the original.
 
@@ -23,17 +23,18 @@ async function generateFlashcard(text, response) {
         Format: { "question": "...", "answer": "..." }
     `;
 
-    if (!window.tabbyAI?.session) {
-        console.error("TabbyAI session not available");
+    // Safely get the session instance
+    const session = typeof window.tabbyAI?.session === 'function' 
+        ? window.tabbyAI.session() 
+        : window.tabbyAI?.session;
+
+    if (!session) {
+        console.warn("TabbyAI session not available, returning default flashcard.");
         return { question: text, answer: response };
     }
 
     try {
-        const sessionInstance = typeof window.tabbyAI.session === 'function' 
-            ? window.tabbyAI.session() 
-            : window.tabbyAI.session;
-            
-        const result = await sessionInstance.prompt(prompt);
+        const result = await session.prompt(promptText);
         return JSON.parse(result);
     } catch (error) {
         console.error("Error generating flashcard:", error);
@@ -101,7 +102,6 @@ window.addEventListener("DOMContentLoaded", () => {
         if (!deckName) return;
         decks.push({ name: deckName, flashcards: [] });
         saveDecks();
-        renderDecks();
     });
 
     loadDecks();
