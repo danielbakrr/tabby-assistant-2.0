@@ -37,11 +37,19 @@ window.loadHistory = async function (source) {
 
     for (const entry of entries) {
         const li = document.createElement("li");
+
+        const formattedResponse = entry.response
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")          // **bold**
+            .replace(/\n\s*\*\s*(.*?)(?=\n|$)/g, "<li>$1</li>")        // bullets
+            .replace(/\n{2,}/g, "<br><br>");                           // spacing
+
         li.innerHTML = `
             <strong>${entry.timestamp}</strong><br>
             <em>Text:</em> ${entry.text}<br>
-            <em>Response:</em> ${entry.response}
+            <em>Response:</em>
+            <ul style="padding-left: 18px; margin: 6px 0;">${formattedResponse}</ul>
         `;
+
 
         const addNotes = document.createElement("button");
         addNotes.textContent = "+";
