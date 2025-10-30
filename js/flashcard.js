@@ -15,7 +15,7 @@ function loadDecks(){
 async function generateFlashcard(text, response) {
     const prompt = `
         Turn the following note into a simple flashcard with a question and answer format.
-        Ensure that the note text is not displayed in full, but rather in bite-sized information.
+        Derive the answer from the response, but ensure both the question and answer are shortened versions of the original.
 
         Note Text: ${text}
         Note Response: ${response}
@@ -23,11 +23,20 @@ async function generateFlashcard(text, response) {
         Format: { "question": "...", "answer": "..." }
     `;
 
-    const result = await window.tabbyAI.session.prompt(prompt);
+    if (!window.tabbyAI?.session) {
+        console.error("TabbyAI session not available");
+        return { question: text, answer: response };
+    }
 
     try {
+        const sessionInstance = typeof window.tabbyAI.session === 'function' 
+            ? window.tabbyAI.session() 
+            : window.tabbyAI.session;
+            
+        const result = await sessionInstance.prompt(prompt);
         return JSON.parse(result);
-    } catch {
+    } catch (error) {
+        console.error("Error generating flashcard:", error);
         return { question: text, answer: response };
     }
 }
