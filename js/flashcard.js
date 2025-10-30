@@ -148,11 +148,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     decks = storageData.decks || [];
     currentDeckIndex = storageData.currentDeckIndex;
 
-    if (!decks[currentDeckIndex] || decks[currentDeckIndex].flashcards.length === 0) {
-        alert("No flashcards in this deck.");
-        return;
-    }
-
     document.getElementById("deckName").textContent = decks[currentDeckIndex].name;
 
     showCard();
@@ -188,12 +183,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         await chrome.storage.local.set({ decks });
-
-        if (decks[currentDeckIndex].flashcards.length === 0) {
-            alert("All flashcards deleted!");
-            window.history.back();
-            return;
-        }
 
         showCard();
     });
