@@ -45,7 +45,16 @@ document.getElementById("askButton").addEventListener("click", async () => {
             Text: """${text}"""`;
 
         const result = await session().prompt(prompt);
-        responseEl.textContent = result;
+
+        // Convert Markdown-like formatting
+        const formattedResult = result
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")  // bold
+        .replace(/\n\s*-\s*(.*?)(?=\n|$)/g, "<li>$1</li>") // bullets
+        .replace(/\n{2,}/g, "<br><br>") // double line breaks
+        .replace(/\s\*\s(.*)/g, "<li>$1</li>"); // bullet for specific casaes
+
+        responseEl.innerHTML = formattedResult;
+
         await saveToHistory(text, result, "prompt"); // add flag to indicate history source
     } catch (err) {
         console.error("Error getting AI response:", err);
@@ -76,7 +85,16 @@ document.getElementById("summarizeButton").addEventListener("click", async () =>
         responseEl.textContent = "📝 Tabby is summarizing...";
 
         const summary = await summarizer().summarize(text);
-        responseEl.textContent = summary;
+
+        // Convert Markdown-like formatting
+        const formattedResult = summary
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")  // bold
+        .replace(/\n\s*-\s*(.*?)(?=\n|$)/g, "<li>$1</li>") // bullets
+        .replace(/\n{2,}/g, "<br><br>")                // double line breaks
+        .replace(/\s\*\s(.*)/g, "<li>$1</li>");
+
+        responseEl.innerHTML = formattedResult;
+
         await saveToHistory(text, summary, "summary"); // add flag to indicate history source
     } catch (err) {
         console.error("Error generating summary:", err);
