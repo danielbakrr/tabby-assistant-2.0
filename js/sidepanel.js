@@ -38,7 +38,7 @@ document.getElementById("askButton").addEventListener("click", async () => {
     try {
         const prompt = `You are Tabby, an AI tutor. For the following text, provide a clear explanation suitable for a student. Break it down into:
 
-            1. Summary: One or two sentences that capture the main idea.
+            1. Overview: One or two sentences that capture the main idea.
             2. Key Concepts: 2–3 bullet points of important ideas or details.
             3. Example or Analogy: A simple example or analogy to make the concept easier to understand.
 

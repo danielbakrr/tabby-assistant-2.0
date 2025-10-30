@@ -13,16 +13,6 @@ function loadDecks(){
 
 //prompt gemini to generate question and answer
 async function generateFlashcard(text, response) {
-    const promptText = `
-        Turn the following note into a simple flashcard with a question and answer format.
-        Derive the answer from the response, but ensure both the question and answer are shortened versions of the original.
-
-        Note Text: ${text}
-        Note Response: ${response}
-
-        Format: { "question": "...", "answer": "..." }
-    `;
-
     // Safely get the session instance
     const session = typeof window.tabbyAI?.session === 'function' 
         ? window.tabbyAI.session() 
@@ -33,11 +23,33 @@ async function generateFlashcard(text, response) {
         return { question: text, answer: response };
     }
 
+    const promptText = `
+        Turn the following note into a simple flashcard with a question and answer format.
+        Derive the answer from the response, but ensure both the question and answer are shortened versions of the original.
+
+        Note Text: ${text}
+        Note Response: ${response}
+
+        Return ONLY a valid JSON object with this exact format, no additional text:
+        {"question": "...", "answer": "..."}
+    `;
+
     try {
         const result = await session.prompt(promptText);
-        return JSON.parse(result);
+        
+        // Try to extract JSON from the response
+        const jsonMatch = result.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            const parsed = JSON.parse(jsonMatch[0]);
+            if (parsed.question && parsed.answer) {
+                return parsed;
+            }
+        }
+        
+        throw new Error("Invalid JSON format from AI");
     } catch (error) {
         console.error("Error generating flashcard:", error);
+        // Fallback to original text
         return { question: text, answer: response };
     }
 }
@@ -186,3 +198,43 @@ document.addEventListener("DOMContentLoaded", async () => {
         showCard();
     });
 });
+
+//--------------------------------------Add Notes to Flashcards------------------------------------//
+// This function should be called from your notes.js when adding a note to a deck
+async function addNoteToDeck(noteText, noteResponse, deckIndex) {
+    // Load current decks
+    const storageData = await chrome.storage.local.get("decks");
+    decks = storageData.decks || [];
+    
+    if (!decks[deckIndex]) {
+        console.error("Deck not found");
+        return false;
+    }
+    
+    // Show loading indicator if available
+    const loadingIndicator = document.getElementById("loadingIndicator");
+    if (loadingIndicator) {
+        loadingIndicator.style.display = "block";
+    }
+    
+    try {
+        // Generate flashcard using AI
+        const flashcard = await generateFlashcard(noteText, noteResponse);
+        
+        // Add to deck
+        decks[deckIndex].flashcards.push(flashcard);
+        
+        // Save to storage
+        await chrome.storage.local.set({ decks });
+        
+        return true;
+    } catch (error) {
+        console.error("Error adding note to deck:", error);
+        return false;
+    } finally {
+        // Hide loading indicator
+        if (loadingIndicator) {
+            loadingIndicator.style.display = "none";
+        }
+    }
+}
